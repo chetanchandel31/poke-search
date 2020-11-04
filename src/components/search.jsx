@@ -13,7 +13,7 @@ export default function Search (props) {
                     <Col sm={10} className="my-1">
                         <Form.Control 
                         placeholder="search pokemon"
-                        onChange={(g) => {setSearch(g.target.value)}} />
+                        onChange={(g) => {setSearch(g.target.value.toLowerCase())}} />
                     </Col>
                     <Col sm={2} className="my-1">
                         <Button block onClick = {() => {props.getPokemon(search)}}>Search</Button>
