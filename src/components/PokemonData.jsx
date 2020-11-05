@@ -42,6 +42,17 @@ export default function PokemonData(props) {
                 </Card>
                 </Col>
             </Row>
+            <Row>
+            <Col xs={12} md={6}>
+                <Card>
+                    <Card.Body>
+                        <h4> Description </h4>
+                         <div>{props.desc[4].flavor_text}</div>
+
+                    </Card.Body>
+                </Card>
+                </Col>
+            </Row>
         </Container>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Search from "../components/search"
-import { fetchPokemon } from '../services/getPokemon';
+import { fetchPokemon, fetchPokemonSpecies } from '../services/getPokemon';
 import PokemonData from '../components/PokemonData'
 import { Alert, Spinner } from 'react-bootstrap';
 
@@ -18,6 +18,7 @@ const spinnerWrapperStyle = {
 export default function HomePage () {
 
     const [pokemon, setPokemon] = React.useState();
+    const [pokemonSpecies, setPokemonSpecies] = React.useState();
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(false);
     const [errMessage, setErrMessage] = React.useState('');
@@ -35,7 +36,11 @@ export default function HomePage () {
         // console.log(response)
         const results = await response.json(); //.json() on RESPONSE object returns another promise.| await or .then on that returns content inside body(which is also another object) of RESPONSE object
         // console.log(results)
+        const speciesResponse = await fetchPokemonSpecies(query);
+        const speciesResults = await speciesResponse.json();
+        console.log(speciesResults)
         setPokemon(results);
+        setPokemonSpecies(speciesResults);
         setLoading(false);
         } catch (err) {
             setLoading(false);
@@ -51,12 +56,11 @@ export default function HomePage () {
     {error? <Alert variant='danger'>{errMessage}</Alert> : null}
 
             <Search getPokemon={getPokemon}/> 
-            {/* shouldn't be in loading state because the function is asynchronus(await's concept), we want pokemon's properties rendered only after loading phase has ended. We dont want to render pokemon's properties when it is undefined or in middle of loading(await concept) */}
             
             {loading ? (
                 <div style=  {spinnerWrapperStyle}>
                 <Spinner style={spinnerStyle} animation="border"/>
-                </div>) :null}
+                </div>) :null} 
 
             {!loading && pokemon ? (
             <PokemonData 
@@ -64,8 +68,10 @@ export default function HomePage () {
             sprite={pokemon.sprites.front_default}
             abilities={pokemon.abilities}
             stats={pokemon.stats}
-            types={pokemon.types}/> 
-            ): null}
+            types={pokemon.types}
+            desc={pokemonSpecies.flavor_text_entries}
+            /> 
+            ): null} {/* shouldn't be in loading state because the function is asynchronus(await's concept), we want pokemon's properties rendered only after loading phase has ended. We dont want to render pokemon's properties when it is undefined or in middle of loading(await concept) */}
         </div>
     )
 }
