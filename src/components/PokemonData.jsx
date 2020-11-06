@@ -105,7 +105,7 @@ export default function PokemonData(props) {
                             <strong>Habitat</strong>: unknown  
                         </div>}
                         <strong>Catch Rate: </strong>
-                        <ProgressBar now={Math.round((100/255) * props.captureRate)} max={100} label={Math.round((100/255) * props.captureRate) + '%'}></ProgressBar>
+                        <ProgressBar now={Math.round((100/255) * props.captureRate)} max={100} label={Math.round((100/255) * props.captureRate) + '%'} variant="success"></ProgressBar>
                     </Card.Header>
                     <Card.Body>
                     <strong>Gender Ratio: </strong>
