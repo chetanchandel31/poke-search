@@ -35,7 +35,7 @@ export default function HomePage () {
         const response = await fetchPokemon(query); //fetch() returns a promise. await or .then of that promise returns the "resolve" part which contains object called "response" | BUT the body of response object is not directly accessible
         // console.log(response)
         const results = await response.json(); //.json() on RESPONSE object returns another promise.| await or .then on that returns content inside body(which is also another object) of RESPONSE object
-        // console.log(results)
+        console.log(results)
         const speciesResponse = await fetchPokemonSpecies(query);
         const speciesResults = await speciesResponse.json();
         console.log(speciesResults)
@@ -69,7 +69,12 @@ export default function HomePage () {
             abilities={pokemon.abilities}
             stats={pokemon.stats}
             types={pokemon.types}
-            desc={pokemonSpecies.flavor_text_entries}
+            desc={pokemonSpecies.flavor_text_entries.filter(x => x.language.name === 'en').map((x) => x.flavor_text)}
+            genus={pokemonSpecies.genera.filter(x => x.language.name === 'en' )}
+            eggGroups={pokemonSpecies.egg_groups}
+            habitat={pokemonSpecies.habitat}
+            captureRate={pokemonSpecies.capture_rate}
+            genderRate={pokemonSpecies.gender_rate}
             /> 
             ): null} {/* shouldn't be in loading state because the function is asynchronus(await's concept), we want pokemon's properties rendered only after loading phase has ended. We dont want to render pokemon's properties when it is undefined or in middle of loading(await concept) */}
         </div>
