@@ -75,6 +75,8 @@ export default function HomePage () {
             habitat={pokemonSpecies.habitat}
             captureRate={pokemonSpecies.capture_rate}
             genderRate={pokemonSpecies.gender_rate}
+            height={pokemon.height}
+            weight={pokemon.weight}
             /> 
             ): null} {/* shouldn't be in loading state because the function is asynchronus(await's concept), we want pokemon's properties rendered only after loading phase has ended. We dont want to render pokemon's properties when it is undefined or in middle of loading(await concept) */}
         </div>

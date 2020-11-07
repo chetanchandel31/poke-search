@@ -30,8 +30,13 @@ export default function PokemonData(props) {
     const femalePercentage = femaleRate * 12.5;
     const malePercentage = (8 - femaleRate) * 12.5;
 
+   
+    const pokemonHeight = Math.round((props.height * 0.328084 + 0.0001) * 100) / 100;
+    const pokemonWeight = Math.round((props.weight * 0.220462 + 0.0001) * 100) / 100;
+    
+
     return(
-        <Container className = "mt-2"> 
+        <Container className = "mt-2" > 
             <Row>
                 <Col xs={12} md={6}>
                 <Card>
@@ -49,8 +54,36 @@ export default function PokemonData(props) {
                             </li>
                         ))}
                         </ul>
-                        <h5>Types</h5>
-                        <h5>
+                        
+                    </Card.Body>
+                </Card>
+                </Col>
+                <Col xs={12} md={6}>
+                <Card>
+                    <Card.Header>
+                        <h5>Basic info</h5>
+                        <strong>Height :</strong> {pokemonHeight} ft. <br/>
+                        <strong>Weight :</strong> {pokemonWeight} lbs. <br/>
+                        {props.habitat ?<div>
+                            <strong>Habitat</strong>: {props.habitat.name}
+                        </div> :
+                        <div>
+                            <strong>Habitat</strong>: unknown  
+                        </div>}
+                        <strong>Egg Groups: </strong> {props.eggGroups.map((x) => x.name).join(', ')} <br/>
+                        <strong>Catch Rate: </strong>
+                        <ProgressBar now={Math.round((100/255) * props.captureRate)} max={100} label={Math.round((100/255) * props.captureRate) + '%'} variant="success"></ProgressBar>
+                        <strong>Gender Ratio: </strong>
+                            {props.genderRate !== -1 ? 
+                                <ProgressBar>
+                                <ProgressBar now={femalePercentage} max={100} variant="danger" label="♀"/>
+                                <ProgressBar now={malePercentage} max={100} variant="warning" label="♂"/>
+                                </ProgressBar>
+                        : <ProgressBar now={100} max={100} variant="danger" label="this pokemon is genderless"/>}
+                    </Card.Header>
+                    <Card.Body>
+                    <h5 style={{display: "inline"}}>Types: </h5>
+                        <h5 style={{display: "inline"}}>
                         {props.types.map((type, key) => (
                             <span key={key}
                             className="badge badge-primary badge-pill mr-1"
@@ -62,59 +95,32 @@ export default function PokemonData(props) {
                                 {type.type.name}
                             </span>
                         ))}
-                        </h5>
+                        </h5> 
                     </Card.Body>
+                </Card>
+                </Col>
+            <Col xs={12} md={6}>
+                <Card>
+                    <Card.Header>
+                        <h5> Description </h5>
+                        
+                         <p>{pokemonDescriptionArr[0]}</p>
+                         <p>{pokemonDescriptionArr[pokemonDescriptionArr.length-1]}</p>
+
+                    </Card.Header>
                 </Card>
                 </Col>
                 <Col xs={12} md={6}>
                 <Card>
-                    <Card.Header>
-                        <h5>Base Stats</h5>
+                    <Card.Body>
+                    <h5>Base Stats</h5>
                         {props.stats.map((stat, key) => (
                             <div key={key}>
                                 <strong>{stat.stat.name}</strong>
                                 <ProgressBar now={stat.base_stat} max={255} label={stat.base_stat}/> 
                                 {/* from react bootstrap */}
                             </div>
-                        ))}
-                    </Card.Header>
-                    <Card.Body>
-                    <strong>Egg Groups: </strong> {props.eggGroups.map((x) => x.name).join(', ')}
-                            
-                    </Card.Body>
-                </Card>
-                </Col>
-            <Col xs={12} md={6}>
-                <Card>
-                    <Card.Body>
-                        <h5> Description </h5>
-                        
-                         <p>{pokemonDescriptionArr[0]}</p>
-                         <p>{pokemonDescriptionArr[pokemonDescriptionArr.length-1]}</p>
-
-                    </Card.Body>
-                </Card>
-                </Col>
-                <Col xs={12} md={6}>
-                <Card>
-                    <Card.Header>
-                        {props.habitat ?<div>
-                            <strong>Habitat</strong>: {props.habitat.name}
-                        </div> :
-                        <div>
-                            <strong>Habitat</strong>: unknown  
-                        </div>}
-                        <strong>Catch Rate: </strong>
-                        <ProgressBar now={Math.round((100/255) * props.captureRate)} max={100} label={Math.round((100/255) * props.captureRate) + '%'} variant="success"></ProgressBar>
-                    </Card.Header>
-                    <Card.Body>
-                    <strong>Gender Ratio: </strong>
-                            {props.genderRate !== -1 ? 
-                                <ProgressBar>
-                                <ProgressBar now={femalePercentage} max={100} variant="danger" label="♀"/>
-                                <ProgressBar now={malePercentage} max={100} variant="warning" label="♂"/>
-                                </ProgressBar>
-                        : <ProgressBar now={100} max={100} variant="danger" label="genderless pokemon"/>}
+                        ))}               
                     </Card.Body>
                 </Card>
                 </Col>
