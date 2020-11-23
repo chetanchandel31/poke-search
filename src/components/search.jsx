@@ -8,6 +8,7 @@ export default function Search (props) {
     function handleSubmit(event) {
         props.getPokemon(search);
         event.preventDefault();
+        setSearch('');
     }
     
     return(
