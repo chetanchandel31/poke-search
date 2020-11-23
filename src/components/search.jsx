@@ -19,6 +19,7 @@ export default function Search (props) {
                         <Form.Control 
                         placeholder="enter pokemon's name"
                         onChange={(g) => {setSearch(g.target.value.toLowerCase())}} 
+                        autoFocus
                          />
                     </Col>
                     <Col sm={2} className="my-1">
