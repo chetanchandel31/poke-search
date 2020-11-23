@@ -48,7 +48,7 @@ export default function HomePage () {
             setErrMessage("Enter correct spelling");
         }
         }, 1500);
-    }
+    } //this function being called in search component but still changing state variables defined in this component because search component is a CHILD of Homepage component
 
     return(
         <div>
